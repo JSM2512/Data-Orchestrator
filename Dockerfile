@@ -22,7 +22,3 @@ ENV NAME DSD
 
 # Run app.py when the container launches
 CMD ["sleep", "infinity"]
-#CMD ["python3", "boto_script1.py"]
-#CMD ["python3", "boto_script2.py"]
-#CMD ["python3", "boto_script3.py"]
-#CMD ["python3", "boto_script4.py"]
