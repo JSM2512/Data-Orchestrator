@@ -1,4 +1,4 @@
-# Distributed System Design Showcase with AWS EKS, S3, Amazon ECR, Docker, and Kubernetes
+# Distributed System Design Concept Showcase with AWS EKS, S3, Amazon ECR, Docker, and Kubernetes
 Welcome to the COMP 6231 DSD Final Project, where we explore and exemplify key concepts in Distributed System Design using cutting-edge technologies such as AWS EKS, AWS S3, Amazon ECR, Docker, and Kubernetes. Follow the outlined steps to delve into the intricacies of our project:
 
 ## Data Storage on S3:
