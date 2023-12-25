@@ -11,7 +11,7 @@ Establish a separate S3 bucket (bucket2) for data replication, with the flexibil
 Set up a new EKS cluster to harness the power of Kubernetes for managing containerized applications seamlessly.
 ## Node Configuration:
 
-Specify the desired number of EC2 instances (Nodes) along with their instance types, such as t3.micro, m5.large, etc. We opted for t3.large (2vCPU's, 8GiB RAM) to align with our project requirements.
+Specify the desired number of EC2 instances (EKS Cluster Nodes) along with their instance types, such as t3.micro, m5.large, etc. We opted for t3.large (2vCPU's, 8GiB RAM) to align with our project requirements.
 ## Identity and Access Management:
 
 Create IAM roles and users to ensure secure access and authorization, aligning with project-specific requirements.
