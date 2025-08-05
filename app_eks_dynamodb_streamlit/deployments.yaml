@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: streamlit-dynamodb-app
+  labels:
+    app: streamlit-dynamodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: streamlit-dynamodb
+  template:
+    metadata:
+      labels:
+        app: streamlit-dynamodb
+    spec:
+      containers:
+        - name: streamlit-dynamodb
+          image: yourdockerhubusername/streamlit-dynamodb:latest # <-- Replace with ECR actual image name
+          ports:
+            - containerPort: 8501
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              value: "your-access-key"
+            - name: AWS_SECRET_ACCESS_KEY
+              value: "your-secret-key"
+            - name: AWS_REGION
+              value: "us-east-1"
+            - name: DYNAMODB_TABLE_NAME
+              value: "your-table-name"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: streamlit-dynamodb-service
+spec:
+  selector:
+    app: streamlit-dynamodb
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8501
+  type: LoadBalancer
