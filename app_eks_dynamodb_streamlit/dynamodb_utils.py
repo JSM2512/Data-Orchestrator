@@ -1,9 +1,15 @@
 from dynamodb_client import DynamoDBClient
 import config
+import boto3
 
 # Initialize config and client
 config = config.Config()
 dynamodb_client = DynamoDBClient(config)
+
+def add_trip(record):
+    dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
+    table = dynamodb.Table('TaxiTripData')
+    table.put_item(Item=record)
 
 def query_trips_by_passenger_and_tip(passenger_count_min, tip_amount_min, limit=100):
     """
