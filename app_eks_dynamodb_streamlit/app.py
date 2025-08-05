@@ -4,7 +4,7 @@ import dynamodb_utils as ut
 
 st.title("🚕 NYC Taxi Trip Data Platform")
 
-tab1, tab2 = st.tabs(["Query Trips", "Add New Trip"])
+tab1, tab2, tab3 = st.tabs(["Query Trips", "Add New Trip", "Bulk Ingestion"])
 
 with tab1:
     st.header("Query DynamoDB")
@@ -62,3 +62,21 @@ with tab2:
             }
             ut.add_trip(new_record)  # Write to DynamoDB, implement in dynamodb_utils.py
             st.success("Trip record uploaded!")
+
+with tab3:
+    st.header("Bulk Ingestion: Upload CSV")
+    uploaded_file = st.file_uploader("Choose a CSV file", type=["csv"])
+
+    if uploaded_file is not None:
+        df = pd.read_csv(uploaded_file)
+        st.write("Preview of uploaded data:")
+        st.dataframe(df.head())
+
+        if st.button("Ingest All Records"):
+            count = 0
+            for _, row in df.iterrows():
+                record = row.to_dict()
+                record = ut.convert_floats_to_decimal(record)
+                ut.add_trip(record)
+                count += 1
+            st.success(f"Successfully ingested {count} records into DynamoDB!")

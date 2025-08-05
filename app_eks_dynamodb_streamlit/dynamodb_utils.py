@@ -1,10 +1,29 @@
 from dynamodb_client import DynamoDBClient
 import config
 import boto3
+from decimal import Decimal
 
 # Initialize config and client
 config = config.Config()
 dynamodb_client = DynamoDBClient(config)
+
+def convert_floats_to_decimal(record):
+    for k, v in record.items():
+        # If the value is a float, convert to Decimal
+        if isinstance(v, float):
+            record[k] = Decimal(str(v))
+        # If the value is a string that looks like a float, convert to Decimal
+        elif isinstance(v, str):
+            try:
+                float_val = float(v)
+                # Only convert if string is a number
+                record[k] = Decimal(v)
+            except ValueError:
+                pass  # leave as string
+        # Fix VendorID to always be string
+        if "VendorID" in record:
+            record["VendorID"] = str(record["VendorID"])
+    return record
 
 def add_trip(record):
     dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
