@@ -26,7 +26,7 @@ Both solutions include:
    All components packaged for easy deployment and portability.
 
 3. **Cloud Storage:**  
-   - **Solution 1:** AWS S3 for object storage  
+   - **Solution 1:** AWS S3 for CSV data storage  
    - **Solution 2:** DynamoDB for NoSQL data management
 
 4. **Workflow Automation:**  
@@ -37,7 +37,7 @@ Both solutions include:
 ## Solution 1: EKS + Docker + S3
 
 ### Check the report Below:
-[![PDF](https://img.shields.io/badge/View%20PDF-Taxi_Demand_Fare_Report-blue)](https://github.com/JSM2512/Distributed_System_Design_Final_Project/blob/main/Taxi_Demand_Fare_Report.pdf)
+[![PDF](https://img.shields.io/badge/View%20PDF-Taxi_Demand_Fare_Report-blue)](https://github.com/JSM2512/Data-Orchestrator/blob/main/app_eks_s3/Taxi_Demand_Fare_Report.pdf)
 
 **Description:**  
 A cloud-native orchestration pipeline using Docker containers on EKS, storing and retrieving data from AWS S3.
@@ -135,12 +135,12 @@ streamlit run app.py
 
 ```
 data-orchestrator/
-├── docker/
-├── k8s/
-├── src/
-│   └── ...
-├── app.py        # Streamlit UI (Solution 2)
+├── app_eks_dynamodb_streamlit/
+│  └── app.py        (Streamlit app + DynamoDb + Docker + EKS -> Solution 2)
+│  └── ...           (other supporting utils and configs)
+├── app_eks_s3/      (CLI + S3 + Docker + EKS -> Solution 1)
 ├── README.md
+├── requirements.txt 
 ```
 
 ---
