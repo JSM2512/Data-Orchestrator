@@ -117,7 +117,7 @@ An enhanced solution with a web UI (Streamlit) for monitoring and managing workf
 **Pros:**  
 - Real-time UI for workflow management  
 - NoSQL data handling with DynamoDB
-- Inject data through UI Form  
+- Inject data into DynamoDB  **(Both Row-wise + Bulk Ingestion using CSV)**
 - Extensible and user-friendly
 
 ---
