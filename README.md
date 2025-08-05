@@ -4,33 +4,46 @@ This project provides two robust solutions for orchestrating data workflows on A
 Both leverage Kubernetes (EKS) and Docker for scalable deployments, but differ in their storage and interface components.
 ### Dataset Link: https://www.kaggle.com/datasets/sohaibanwaar1203/taxidemandfarepredictiondataset?select=yellow_tripdata_2015-03.csv
 
+**This repository was used to display 4 major distributed system design principles:**
+
+1. **Scalability by Replication in Kubernetes (EKS):**  
+   Kubernetes deployments in EKS use replica sets to scale workloads horizontally, ensuring the system can handle increased load efficiently.
+
+2. **High Availability with Multi-Region S3 & DynamoDB:**  
+   AWS S3 and DynamoDB are configured for multi-region access, providing data redundancy and minimizing downtime in case of regional failures.
+
+3. **Fault Tolerance via Multiple Replicas and Pod Recreation:**  
+   The system automatically recovers from node or pod failure using Kubernetes' self-healing features, maintaining service continuity through active replicas.
+
+4. **Containerization by Docker:**  
+   All microservices and workflow components are packaged as Docker containers for environment consistency, rapid deployment, and portability.
+
 ---
 
-## Solutions Overview
+## Solution Architectures
 
-| Solution                | Storage | UI      | Main Technologies           |
-|-------------------------|---------|---------|----------------------------|
-| **1. EKS + Docker + S3**        | S3      | None    | EKS, Docker, AWS S3        |
-| **2. EKS + Docker + DynamoDB + UI** | DynamoDB | Streamlit | EKS, Docker, DynamoDB, Streamlit |
+| Solution | Storage | UI | Tech Stack | Description |
+|----------|---------|----|------------|-------------|
+| **1. EKS + Docker + S3** | AWS S3 | None | EKS, Docker, S3 | Containerized services on EKS interact with AWS S3 for distributed storage and workflow orchestration. |
+| **2. EKS + Docker + DynamoDB + UI** | DynamoDB | Streamlit | EKS, Docker, DynamoDB, Streamlit | Improved version: adds a Streamlit UI for user interaction, and DynamoDB for fast, scalable NoSQL storage. |
 
 ---
 
-## Main Features
+## How Each Principle Is Demonstrated
 
-Both solutions include:
+**Both solutions implement:**
 
-1. **Scalable Kubernetes (EKS) Deployment:**  
-   Containerized workloads managed by AWS EKS.
+- **Scalability:**  
+  Multiple replicas and scaling in EKS deployments (`replicas` in deployment manifest).
 
-2. **Dockerized Microservices:**  
-   All components packaged for easy deployment and portability.
+- **High Availability:**  
+  S3 and DynamoDB support multi-region redundancy; EKS schedules pods across multiple nodes.
 
-3. **Cloud Storage:**  
-   - **Solution 1:** AWS S3 for CSV data storage  
-   - **Solution 2:** DynamoDB for NoSQL data management
+- **Fault Tolerance:**  
+  Kubernetes automatically recreates pods and maintains the desired number of active nodes.
 
-4. **Workflow Automation:**  
-   Modular design for data ingestion, processing, and orchestration.
+- **Containerization:**  
+  All services use Docker for packaging and deployment.
 
 ---
 
@@ -135,10 +148,18 @@ streamlit run app.py
 
 ```
 data-orchestrator/
-├── app_eks_dynamodb_streamlit/
-│  └── app.py        (Streamlit app + DynamoDb + Docker + EKS -> Solution 2)
-│  └── ...           (other supporting utils and configs)
-├── app_eks_s3/      (CLI + S3 + Docker + EKS -> Solution 1)
+├──app_eks_s3/                    # Solution 1: S3-based workflow
+│  ├── Dockerfile
+│  ├── boto_script2.py
+│  ├── boto_script3.py
+│  ├── sql4.py
+│  ├── sql_final.py
+├──app_eks_dynamodb_streamlit/    # Solution 2: DynamoDB + Streamlit UI
+│  ├── DockerFile
+│  ├── config.py
+│  ├── dynamodb_client.py
+│  ├── streamlit_app.py
+│  ├── deployments.yaml
 ├── README.md
 ├── requirements.txt 
 ```
